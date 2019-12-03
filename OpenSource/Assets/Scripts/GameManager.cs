@@ -4,20 +4,23 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
 {
-    public static GameManager instance;
+    public static GameManager instance; //게임 매니저 싱글톤
 
-    public List<Tile> tiles;
+    public List<Tile> tiles; //게임 시작시 생성되는 타일
+    public List<Tile> theywantTheseTiles; // 각턴에 플레이어들이 구매하려하는 타일들
 
     public int limitTurn = 30; //전체 턴 수
     public int currentTrun;
 
-    public float timeLimit = 60;
+    public float timeLimit = 60; //턴 시간제한
 
     public float timeforsetPosition;
+    public float turnTime = 0;
 
     public List<Player> players;
 
-    public bool startanimaiotnend = false;
+
+    public bool startanimaiotnend = false; //시작 전 애니메이션이 끝났는지
 
     public enum GamePlayFSM { //GameRule : TurnReady -> StartTrun -> TurnExit -> HalfTurn -> Eventset-> GoToNextTurn
         beforeTurn, 
@@ -26,6 +29,17 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
     }
 
     public GamePlayFSM playFSM;
+
+    public enum Event {
+        KILLER,
+        SERIALKILLER,
+        CELABLEAVSHERE,
+        FIRE,
+        SUPERVIRUS,
+        GETMOREPEOPLE,
+        ZOMBIEPOPUP,
+
+    }
 
     private void Awake()
     {
@@ -46,7 +60,7 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
         TurnFSM();
     }
 
-    private void TurnFSM()
+    private void TurnFSM()//턴 제어기{준비, 턴, 턴스위친}
     {
         switch (playFSM)
         {
@@ -64,7 +78,7 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
 
     private void TurnReady()
     {
-        if (currentTrun == 0) //0 turn(at start), setting start Position
+        if (currentTrun == 0) //0 turn(at start), setting start Position 0턴(맨 시작 턴)
         {
             SetPosition();
         }
@@ -80,7 +94,7 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
         if (timeforsetPosition >= 0)
         {
             timeforsetPosition -= Time.deltaTime;
-            Debug.Log(timeforsetPosition);
+            //Debug.Log(timeforsetPosition);
             if (players.Count != 0)
             {
                 for (int i = 0; i < players.Count; i++)
@@ -94,7 +108,7 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
         }
         else if (timeforsetPosition < 0) //After settime
         {
-            for (int i = 0; i < players.Count; i++) //if player didn't choose starttile, give random tile
+            for (int i = 0; i < players.Count; i++) //if player didn't choose starttile, give random tile 플레이어가 시작 타일을 선택하지 않았다면 아무도 소유하지 않은 타일을 랜덤하게 준다.
             {
                 if (players[i].territory.Count < 1)
                 {
@@ -112,38 +126,79 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
         }
     }
 
-    private void LocateCharacters()
+    private void LocateCharacters() //플레이어들의 케릭터를 위치시킨 후, 플레이어 오브젝트의 차일드 오브젝트로 배정한다.
     {
         for (int i = 0; i < players.Count; i++)
         {
             if (!players[i].isCharaterhere)
             {
                 GameObject character = Instantiate(players[i].playerCharcter);
+                character.GetComponent<Character>().whoseCharacter = players[i];
+                players[i].charcterMoverange = character.GetComponent<Character>().movablerange;
+                players[i].characterActionRange = character.GetComponent<Character>().actionRange;
                 character.transform.position = players[i].charactorPos;
                 character.transform.parent = players[i].transform;
+                players[i].WhereIsYourCharacter = players[i].territory[0];
                 players[i].isCharaterhere = true;
+                players[i].playerCharcteronScreen = character;
             }
         }
     }
 
-    private void CheckSequence() //After turn, output of player's act
+    private void CheckSequence() //After turn, output of player's act //다른 부분은 실시간으로 하되, 타일을 사고 팔고, 토지 경매 목적
     {
 
     }
 
 
-    private void WhileTurn()
+    private void WhileTurn()//이벤트 나오게 하기, 타일 결과값 파악하기
     {
+        if (turnTime <= timeLimit)
+        {
+            turnTime += Time.deltaTime;
+        }
+        else if (turnTime > timeLimit)
+        {
 
+            currentTrun += 1;
+            TurnReady();
+        }
     }
 
-    private void StartTurn() //Start Turn
+    private void StartTurn() //Start Turn //시작하기전 이벤트 현재 턴에 나올 이벤트셋 턴 시간 리셋,모든 이벤트는 1턴 이후에 나온다.
     {
-
+        turnTime = 0;
+        if (currentTrun == 1)
+        {
+            playFSM = GamePlayFSM.whileTurn;
+        }
+        else if (currentTrun > 1)
+        {
+            GivingLand();
+            EventSetter();
+            playFSM = GamePlayFSM.whileTurn;
+        }
     }
 
-    private void EventHandler() //event
+    private void EventSetter() //event셋
     {
-
     }
+
+    private void GivingLand()
+    {
+        for (int i = 0; i < theywantTheseTiles.Count; i++)
+        {
+            if (theywantTheseTiles[i].WhoWantsToBuy.Count > 1)
+            {
+                //경매
+            }
+            else if (theywantTheseTiles[i].WhoWantsToBuy.Count == 1)
+            {
+                theywantTheseTiles[i].owner = theywantTheseTiles[i].WhoWantsToBuy[0];
+                theywantTheseTiles[i].WhoWantsToBuy.Clear();
+            }
+        }
+    }
+
+
 }

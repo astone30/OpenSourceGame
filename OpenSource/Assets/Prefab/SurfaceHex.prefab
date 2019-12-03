@@ -92,4 +92,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grounds:
-  - {fileID: 5283241743896142771, guid: 1a652fbbee27d78478c385450b5c7646, type: 3}
+  - {fileID: 8549250143297611861, guid: 1a652fbbee27d78478c385450b5c7646, type: 3}
+  percent_of_Plain: 0
+  x: 0
+  y: 0
+  z: 0
