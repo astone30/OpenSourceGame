@@ -9,7 +9,13 @@ public class ConstructUI : MonoBehaviour
 
     public Button cancleButton;
 
-    public Button[] constructbuttons;
+    public Button pavingTile;//지면 포장
+    public Button buildVilla;//빌라
+    public Button buildStore;//상가
+    public Button buildFireStation;//소방서
+    public Button buildPoliceStation;//경찰서
+    public Button buildSchool; //학교
+
 
     public GameObject buildUIprefab;
     public GameObject buildUI;
@@ -17,10 +23,7 @@ public class ConstructUI : MonoBehaviour
     public void Start()
     {
         cancleButton.onClick.AddListener(CancleOrder);
-        for (int i = 0; i < constructbuttons.Length; i++)
-        {
-            constructbuttons[i].onClick.AddListener(BuildPOPUP);
-        }
+        pavingTile.onClick.AddListener(PavingTile);
     }
 
     void CancleOrder()
@@ -29,9 +32,8 @@ public class ConstructUI : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    void BuildPOPUP()
+    void PavingTile()
     {
         buildUIprefab = Instantiate(buildUI);
-
     }
 }

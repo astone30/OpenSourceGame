@@ -12,8 +12,8 @@ public class PlayerUI : MonoBehaviour
 
     public Button exit;
 
-    public Button toCharacter;
-    public Button toyourland;
+    public Button toCharacter; //케릭터 있는 위치로 화면을 이동 시킨다.
+    public Button toyourland; 
     public Button financial;
     public Button currentSituation;
     public Button turnend;
@@ -22,7 +22,7 @@ public class PlayerUI : MonoBehaviour
 
 
     private float time = 0;
-    private float speed = 0.009f;
+    private float speed = 0.1f;
     private float score;
 
     private void Awake()
@@ -35,7 +35,6 @@ public class PlayerUI : MonoBehaviour
     {
         currentTurn.text = GameManager.instance.currentTrun.ToString("00");
         left_time.text = GameManager.instance.turnTime.ToString("00");
-        money.text = theone.money.ToString("0000000000") +"$";
     }
 
     // Update is called once per frame

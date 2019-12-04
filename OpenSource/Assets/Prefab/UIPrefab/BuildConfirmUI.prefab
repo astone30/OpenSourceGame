@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 9039327774938389006}
   - component: {fileID: 6765217567231098252}
   m_Layer: 5
-  m_Name: Button
+  m_Name: YES
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -363,6 +363,7 @@ GameObject:
   - component: {fileID: 7249170896067434724}
   - component: {fileID: 8968102837394122592}
   - component: {fileID: 5293951086240674180}
+  - component: {fileID: 2174413126917480126}
   m_Layer: 5
   m_Name: BuildConfirmUI
   m_TagString: Untagged
@@ -450,6 +451,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2174413126917480126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3485492453776313137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ebe637712cb7544fbf0d87185207f81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  build: {fileID: 6765217567231098252}
+  cancle: {fileID: 2133161237157317619}
 --- !u!1 &3494258650079171828
 GameObject:
   m_ObjectHideFlags: 0
@@ -688,7 +703,7 @@ GameObject:
   - component: {fileID: 4097200758088962353}
   - component: {fileID: 2133161237157317619}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Nevermind
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
