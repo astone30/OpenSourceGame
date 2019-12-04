@@ -105,6 +105,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whoseCharacter: {fileID: 0}
-  actionPoint: 6
+  actionPoint: 12
   movablerange: 2
   actionRange: 1

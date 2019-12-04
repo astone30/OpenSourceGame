@@ -53,7 +53,7 @@ public class Tile : MonoBehaviour
     }
     public void Update()
     {
-        if (this.neighborTIle.Count == 0)
+        if (this.neighborTIle.Count == 0) //이웃한 타일들 정보 불러오기
         {
             for (int i = 0; i < GameManager.instance.tiles.Count; i++)
             {
@@ -75,7 +75,11 @@ public class Tile : MonoBehaviour
                 }
             }
         }
-        
+
+        if (this.owner != null && !this.owner.territory.Contains(this))
+        {
+            owner.territory.Add(this);
+        }
 
     }
 

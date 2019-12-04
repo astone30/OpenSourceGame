@@ -14,8 +14,7 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
 
     public float timeLimit = 60; //턴 시간제한
 
-    public float timeforsetPosition;
-    public float turnTime = 0;
+    public float turnTime = 30;
 
     public List<Player> players;
 
@@ -25,6 +24,7 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
     public enum GamePlayFSM { //GameRule : TurnReady -> StartTrun -> TurnExit -> HalfTurn -> Eventset-> GoToNextTurn
         beforeTurn, 
         whileTurn, 
+        afterTurn,
         gotoNextTurn 
     }
 
@@ -38,13 +38,12 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
         SUPERVIRUS,
         GETMOREPEOPLE,
         ZOMBIEPOPUP,
-
+        TOURIST
     }
 
     private void Awake()
     {
         instance = this;
-        timeforsetPosition = 30;
     }
 
     // Start is called before the first frame update
@@ -70,6 +69,9 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
             case GamePlayFSM.whileTurn:
                 WhileTurn();
                 break;
+            case GamePlayFSM.afterTurn:
+                CheckSequence();
+                break;
             case GamePlayFSM.gotoNextTurn:
                 StartTurn();
                 break;
@@ -91,9 +93,9 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
     private void SetPosition()
     {
         //float time = 30;
-        if (timeforsetPosition >= 0)
+        if (turnTime >= 0)
         {
-            timeforsetPosition -= Time.deltaTime;
+            turnTime -= Time.deltaTime;
             //Debug.Log(timeforsetPosition);
             if (players.Count != 0)
             {
@@ -106,7 +108,7 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
                 }
             }
         }
-        else if (timeforsetPosition < 0) //After settime
+        else if (turnTime < 0) //After settime
         {
             for (int i = 0; i < players.Count; i++) //if player didn't choose starttile, give random tile 플레이어가 시작 타일을 선택하지 않았다면 아무도 소유하지 않은 타일을 랜덤하게 준다.
             {
@@ -136,6 +138,7 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
                 character.GetComponent<Character>().whoseCharacter = players[i];
                 players[i].charcterMoverange = character.GetComponent<Character>().movablerange;
                 players[i].characterActionRange = character.GetComponent<Character>().actionRange;
+                players[i].actionpoint = character.GetComponent<Character>().actionPoint;
                 character.transform.position = players[i].charactorPos;
                 character.transform.parent = players[i].transform;
                 players[i].WhereIsYourCharacter = players[i].territory[0];
@@ -147,34 +150,41 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
 
     private void CheckSequence() //After turn, output of player's act //다른 부분은 실시간으로 하되, 타일을 사고 팔고, 토지 경매 목적
     {
-
-    }
-
-
-    private void WhileTurn()//이벤트 나오게 하기, 타일 결과값 파악하기
-    {
-        if (turnTime <= timeLimit)
+        if (theywantTheseTiles.Count > 0)
         {
-            turnTime += Time.deltaTime;
+            GivingLand();
+            theywantTheseTiles.Clear();
         }
-        else if (turnTime > timeLimit)
+        else if (theywantTheseTiles.Count == 0) //땅 소유자 판정이 끝났을때 턴을 다시 준비한다.
         {
-
             currentTrun += 1;
             TurnReady();
         }
     }
 
+
+    private void WhileTurn()//턴 넘기기, 나중에 기능추가
+    {
+        if (turnTime > 0)
+        {
+            turnTime -= Time.deltaTime;
+        }
+        else if (turnTime <= 0)
+        {
+            playFSM = GamePlayFSM.afterTurn;
+            //TurnReady(); 
+        }
+    }
+
     private void StartTurn() //Start Turn //시작하기전 이벤트 현재 턴에 나올 이벤트셋 턴 시간 리셋,모든 이벤트는 1턴 이후에 나온다.
     {
-        turnTime = 0;
+        turnTime = 30;
         if (currentTrun == 1)
         {
             playFSM = GamePlayFSM.whileTurn;
         }
         else if (currentTrun > 1)
         {
-            GivingLand();
             EventSetter();
             playFSM = GamePlayFSM.whileTurn;
         }
@@ -188,13 +198,14 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
     {
         for (int i = 0; i < theywantTheseTiles.Count; i++)
         {
-            if (theywantTheseTiles[i].WhoWantsToBuy.Count > 1)
+            if (theywantTheseTiles[i].WhoWantsToBuy.Count > 1) //구매자가 두명 이상 일 때 
             {
                 //경매
             }
             else if (theywantTheseTiles[i].WhoWantsToBuy.Count == 1)
             {
                 theywantTheseTiles[i].owner = theywantTheseTiles[i].WhoWantsToBuy[0];
+                theywantTheseTiles[i].WhoWantsToBuy[0].money -= theywantTheseTiles[i].Price;
                 theywantTheseTiles[i].WhoWantsToBuy.Clear();
             }
         }

@@ -97,6 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8847a1c052ccf4e8c738a154d2d070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  x: 0
+  y: 0
+  z: 0
   points:
   - {fileID: 0}
   - {fileID: 0}
@@ -106,13 +109,21 @@ MonoBehaviour:
   - {fileID: 0}
   for_vertices: {fileID: 2837988048566611783, guid: 001f81808a89b614c8b530d2f9eec37c,
     type: 3}
+  construct: {fileID: 0}
+  neighborTIle: []
   line: {fileID: 6659719851653345866}
-  Price: 0
+  Price: 800
   Kind_Of_This: 2
   owner: {fileID: 0}
+  WhoWantsToBuy: []
   radius: 0.95
   lineh: -1.9
-  Description: "\uD0C0\uC77C \uC124\uBA85"
+  Description: "\"\uC5EC\uAE34 \uC65C\uC774\uB807\uAC8C \uC0B0\uC774 \uB9CE\uC544??\"
+    \uAC00\uACA9\uC774 \uC800\uB834\uD558\uC9C0\uB9CC \uAC74\uBB3C\uC9D3\uAE30\uC5D4
+    \uBB34\uB9AC\uAC00 \uC788\uB2E4."
+  neutralColor: {r: 0, g: 0, b: 0, a: 1}
+  tileColor: {r: 0, g: 0, b: 0, a: 0}
+  buyable: 1
 --- !u!120 &6659719851653345866
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -130,7 +141,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fafeb6bad7c84a944ae25c2cff99f5f4, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

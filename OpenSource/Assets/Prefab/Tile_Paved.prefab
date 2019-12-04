@@ -92,7 +92,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8847a1c052ccf4e8c738a154d2d070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mugshot: {fileID: 0}
   x: 0
   y: 0
   z: 0
@@ -111,9 +110,11 @@ MonoBehaviour:
   Price: 3000
   Kind_Of_This: 3
   owner: {fileID: 0}
+  WhoWantsToBuy: []
   radius: 0.95
   lineh: 2
-  Description: "\uCF58\uD06C\uB9AC\uD2B8, \uB354 \uB9CE\uC740 \uAC74\uBB3C \uAC74\uC124\uAC00\uB2A5"
+  Description: "\uD3EC\uC7A5\uB41C \uC9C0\uC5ED, \uB354 \uB9CE\uC740 \uAC74\uBB3C\uB4E4\uC744
+    \uAC74\uC124 \uD560 \uC218\uC788\uB2E4."
   neutralColor: {r: 0, g: 0, b: 0, a: 0.5882353}
   tileColor: {r: 0, g: 0, b: 0, a: 0}
   buyable: 1

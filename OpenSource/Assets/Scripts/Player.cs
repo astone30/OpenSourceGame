@@ -8,6 +8,7 @@ public class Player: MonoBehaviour // TODO : Make PlayerCharacter, give characte
     public int money; //가진 돈
     public int charcterMoverange; //한번에 이동가능한 범위
     public int characterActionRange; //캐릭터 행동가능범위
+    public int actionpoint;
 
     public GameObject playerCharcter;//Player Character
     public GameObject playerCharcteronScreen;//Player Character  
@@ -64,16 +65,22 @@ public class Player: MonoBehaviour // TODO : Make PlayerCharacter, give characte
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            currentMousePos = hit.point;
-            if (hit.collider.gameObject.GetComponent<Tile>())
+            if (!EventSystem.current.IsPointerOverGameObject())
             {
-                if (hit.collider.gameObject.GetComponent<Tile>().owner == null && Input.GetMouseButton(0))
+                currentMousePos = hit.point;
+                if (hit.collider.gameObject.GetComponent<Tile>())
                 {
-                    this.territory.Add(hit.collider.gameObject.GetComponent<Tile>());
-                    hit.collider.gameObject.GetComponent<Tile>().owner = this;
+                    if (hit.collider.gameObject.GetComponent<Tile>().owner == null && Input.GetMouseButton(0))
+                    {
+                        this.territory.Add(hit.collider.gameObject.GetComponent<Tile>());
+                        hit.collider.gameObject.GetComponent<Tile>().owner = this;
+                    }
+                }
+                else
+                {
+                    Debug.Log("do nothing");
                 }
             }
         }
@@ -86,27 +93,30 @@ public class Player: MonoBehaviour // TODO : Make PlayerCharacter, give characte
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            if (Input.GetMouseButtonDown(0) && !isCharacterSelected) //캐릭터 선택이 되지 않았을때의 조작
+            if (!EventSystem.current.IsPointerOverGameObject())
             {
-                selectedObject = hit.collider.gameObject;
-                if (hit.collider.gameObject != selectedObject)
+                if (Input.GetMouseButtonDown(0) && !isCharacterSelected) //캐릭터 선택이 되지 않았을때의 조작
                 {
                     selectedObject = hit.collider.gameObject;
+                    if (hit.collider.gameObject != selectedObject)
+                    {
+                        selectedObject = hit.collider.gameObject;
+                    }
+                    Controller(selectedObject);
                 }
-                Controller(selectedObject); 
-            }
-            else if (Input.GetMouseButtonDown(0) && isCharacterSelected) //캐릭터 선택이 되었을 때의 조작
-            {
-                selectedObject = hit.collider.gameObject;
-                if (hit.collider.gameObject != selectedObject)
+                else if (Input.GetMouseButtonDown(0) && isCharacterSelected) //캐릭터 선택이 되었을 때의 조작
                 {
                     selectedObject = hit.collider.gameObject;
+                    if (hit.collider.gameObject != selectedObject)
+                    {
+                        selectedObject = hit.collider.gameObject;
+                    }
                 }
-            }
-            else if (Input.GetMouseButtonDown(1) && isCharacterSelected)
-            {
-                isCharacterSelected = false;
-                UnShowMovableRange(WhereIsYourCharacter);
+                else if (Input.GetMouseButtonDown(1) && isCharacterSelected)
+                {
+                    isCharacterSelected = false;
+                    UnShowMovableRange(WhereIsYourCharacter);
+                }
             }
         }
     }
@@ -117,19 +127,22 @@ public class Player: MonoBehaviour // TODO : Make PlayerCharacter, give characte
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            currentMousePos = hit.point;
-            if (hit.collider.gameObject.GetComponent<Tile>() && cursorlookingObject == null)
+            if (!EventSystem.current.IsPointerOverGameObject())
             {
-                cursorlookingObject = hit.collider.gameObject;
-                backtocolor = cursorlookingObject.GetComponent<Tile>().line.material.color;
-                hit.collider.gameObject.GetComponent<Tile>().line.material.color = Color.white;
-            }
-            else if (hit.collider.gameObject.GetComponent<Tile>() && cursorlookingObject != null)
-            {
-                if (hit.collider.gameObject != cursorlookingObject)
+                currentMousePos = hit.point;
+                if (hit.collider.gameObject.GetComponent<Tile>() && cursorlookingObject == null)
                 {
-                    cursorlookingObject.GetComponent<Tile>().line.material.color = backtocolor;
-                    cursorlookingObject = null;
+                    cursorlookingObject = hit.collider.gameObject;
+                    backtocolor = cursorlookingObject.GetComponent<Tile>().line.material.color;
+                    hit.collider.gameObject.GetComponent<Tile>().line.material.color = Color.white;
+                }
+                else if (hit.collider.gameObject.GetComponent<Tile>() && cursorlookingObject != null)
+                {
+                    if (hit.collider.gameObject != cursorlookingObject)
+                    {
+                        cursorlookingObject.GetComponent<Tile>().line.material.color = backtocolor;
+                        cursorlookingObject = null;
+                    }
                 }
             }
         }
@@ -167,9 +180,14 @@ public class Player: MonoBehaviour // TODO : Make PlayerCharacter, give characte
         {
             if (selected.GetComponent<Tile>().owner == this)
             {
-                Debug.Log("내땅"); // UI 조작 창(건설 Ui)
-                bUI = true;
-                ConstructUIprefab = Instantiate(ConstructUI);
+                if (!bUI)
+                {
+                    Debug.Log("내땅"); // UI 조작 창(건설 Ui)
+                    bUI = true;
+                    ConstructUIprefab = Instantiate(ConstructUI);
+                    ConstructUIprefab.GetComponent<ConstructUI>().buildTothis = selected.GetComponent<Tile>(); //타일 정보를 ui에 담는다.
+                    ConstructUIprefab.GetComponent<ConstructUI>().transform.SetParent(this.gameObject.transform);
+                }
             }
             else
             {
@@ -262,16 +280,27 @@ public class Player: MonoBehaviour // TODO : Make PlayerCharacter, give characte
         int i = 0;
         while (WhereIsYourCharacter != destin)
         {
-            yield return new WaitForSeconds(1f);
-            playerCharcteronScreen.transform.position = path[i].transform.position;
-            WhereIsYourCharacter = path[i];
-            i++;
+            if (actionpoint > 0)
+            {
+                yield return new WaitForSeconds(1f);
+                playerCharcteronScreen.transform.position = path[i].transform.position;
+                WhereIsYourCharacter = path[i];
+                i++;
+                actionpoint--;
+            }
+            else
+            {
+                break;
+            }
         }
-        if (WhereIsYourCharacter == destin)
+        if (WhereIsYourCharacter == destin || actionpoint == 0)
         {
             path.Clear();
-            ShowMoveableRange(WhereIsYourCharacter);
+            isCharacterSelected = false;
+            if (actionpoint == 0)
+            { Debug.Log("이동 불가"); }
         }
+        
     }
 }
 
