@@ -124,6 +124,10 @@ MonoBehaviour:
   neutralColor: {r: 0, g: 0, b: 0, a: 1}
   tileColor: {r: 0, g: 0, b: 0, a: 0}
   buyable: 1
+  mountainChange: 0
+  pave: {fileID: 2100000, guid: 11b9dba56d592e04a8ccc3f45bc30e21, type: 3}
+  tileforpave: {fileID: 1771579654710936508, guid: e5bf3ce0c6ea60f4c870cabe1d23641c,
+    type: 3}
 --- !u!120 &6659719851653345866
 LineRenderer:
   m_ObjectHideFlags: 0

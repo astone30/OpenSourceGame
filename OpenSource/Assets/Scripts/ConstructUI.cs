@@ -20,11 +20,27 @@ public class ConstructUI : MonoBehaviour
     public GameObject buildUIprefab;
     public GameObject buildUI;
 
+    public Sprite[] mugimages; //이미지들
+
     public void Start()
     {
         cancleButton.onClick.AddListener(CancleOrder);
         pavingTile.onClick.AddListener(PavingTile);
     }
+
+    public void Update()
+    {
+        TileJudger();
+        if (!this.GetComponentInParent<Player>().bUI)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    void TileJudger()
+    {
+    }
+
 
     void CancleOrder()
     {
@@ -35,5 +51,22 @@ public class ConstructUI : MonoBehaviour
     void PavingTile()
     {
         buildUIprefab = Instantiate(buildUI);
+        buildUIprefab.GetComponent<BuildConfirmUI>().hereHere = buildTothis;
+        buildUIprefab.transform.SetParent(this.GetComponentInParent<Player>().transform);
+        buildUIprefab.GetComponent<BuildConfirmUI>().Description = "땅을 포장한다.";
+        switch (buildTothis.Kind_Of_This)
+        {
+            case Tile.TileKind.MOUNTAIN:
+                buildUIprefab.GetComponent<BuildConfirmUI>().pricenum = 1800;
+                buildUIprefab.GetComponent<BuildConfirmUI>().Description += "산지를 개간 하려면 추가비용이 든다.";
+                break;
+            case Tile.TileKind.GRASS: // 타일 종류가 평지이면 포장 가격 평균
+                buildUIprefab.GetComponent<BuildConfirmUI>().pricenum = 1500;
+                break;
+            case Tile.TileKind.BEACH: // 타일 종류가 해변 가일 경우
+                buildUIprefab.GetComponent<BuildConfirmUI>().pricenum = 1200;
+                buildUIprefab.GetComponent<BuildConfirmUI>().Description += "해안가에 건물을 건설 하겠다고? 어떻게 되도 모른다??";
+                break;
+        }
     }
 }

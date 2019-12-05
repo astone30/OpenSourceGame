@@ -826,6 +826,8 @@ MonoBehaviour:
   buildSchool: {fileID: 5758538261511504160}
   buildUIprefab: {fileID: 0}
   buildUI: {fileID: 3485492453776313137, guid: b194dddfc3f88f9448c17880c6f36d0b, type: 3}
+  mugimages:
+  - {fileID: 21300000, guid: 0cc83c41e33d7314096ccc35e436849e, type: 3}
 --- !u!1 &427558124958333648
 GameObject:
   m_ObjectHideFlags: 0

@@ -38,7 +38,10 @@ public class GroundUI : MonoBehaviour
         {
             if (this.GetComponentInParent<Player>().actionpoint > 0)
             {
-                tile.WhoWantsToBuy.Add(this.GetComponentInParent<Player>()); //구매자 시도자 리스트
+                if (!tile.WhoWantsToBuy.Contains(this.GetComponentInParent<Player>()))
+                {
+                    tile.WhoWantsToBuy.Add(this.GetComponentInParent<Player>()); //구매자 시도자 리스트
+                }
                 GameManager.instance.theywantTheseTiles.Add(tile);
                 this.GetComponentInParent<Player>().actionpoint--;
                 this.GetComponentInParent<Player>().gUI = false;

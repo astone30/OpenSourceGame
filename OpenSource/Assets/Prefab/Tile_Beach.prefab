@@ -92,7 +92,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8847a1c052ccf4e8c738a154d2d070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mugshot: {fileID: 0}
   x: 0
   y: 0
   z: 0
@@ -111,12 +110,14 @@ MonoBehaviour:
   Price: 1000
   Kind_Of_This: 0
   owner: {fileID: 0}
+  WhoWantsToBuy: []
   radius: 0.95
   lineh: 2
   Description: "\uD574\uBCC0\uAC00 \uC8FC\uBCC0\uC5D0 \uC704\uCE58\uD55C \uD0C0\uC77C\uC774\uB2E4."
   neutralColor: {r: 0, g: 0, b: 0, a: 0.5882353}
   tileColor: {r: 0, g: 0, b: 0, a: 0}
   buyable: 1
+  pave: {fileID: 2100000, guid: 11b9dba56d592e04a8ccc3f45bc30e21, type: 3}
 --- !u!64 &4140182527579379683
 MeshCollider:
   m_ObjectHideFlags: 0

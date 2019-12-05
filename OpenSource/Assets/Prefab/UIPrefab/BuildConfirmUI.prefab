@@ -463,8 +463,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ebe637712cb7544fbf0d87185207f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hereHere: {fileID: 0}
+  formountain: {fileID: 4149549780389181311, guid: 8c6a07106473dd54bade87a01f53fa15,
+    type: 3}
   build: {fileID: 6765217567231098252}
   cancle: {fileID: 2133161237157317619}
+  price: {fileID: 1325440089507296810}
+  description: {fileID: 8560131767360952223}
+  mug: {fileID: 0}
+  pricenum: 0
+  Description: 
 --- !u!1 &3494258650079171828
 GameObject:
   m_ObjectHideFlags: 0

@@ -131,6 +131,7 @@ MonoBehaviour:
   neutralColor: {r: 0, g: 0, b: 0, a: 0.5882353}
   tileColor: {r: 0, g: 0, b: 0, a: 0}
   buyable: 1
+  pave: {fileID: 2100000, guid: 11b9dba56d592e04a8ccc3f45bc30e21, type: 3}
 --- !u!120 &4397657306489125793
 LineRenderer:
   m_ObjectHideFlags: 0

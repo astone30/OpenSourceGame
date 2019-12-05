@@ -34,7 +34,9 @@ public class Tile : MonoBehaviour
     public Color tileColor;
 
     public bool buyable = true; // 타일을 둘러싼 이웃타일들이 모두 같은 플레이어의 소유면 구매신청 불가
-
+    public bool mountainChange = false;
+    public Material pave; //콘크리트
+    public Tile tileforpave;
 
     public void Awake()
     { 
@@ -53,6 +55,38 @@ public class Tile : MonoBehaviour
     }
     public void Update()
     {
+        if (mountainChange)
+        {
+            gameObject.GetComponent<Transform>().localScale = new Vector3(1, 1, 1);
+            gameObject.GetComponent<Transform>().localPosition = new Vector3(0, 1.502358f, 0);
+            for (int i = 0; i < gameObject.GetComponent<Renderer>().materials.Length; i++)
+            {
+                gameObject.GetComponent<Renderer>().materials[i] = null;
+            }
+            gameObject.GetComponent<Renderer>().material.color = pave.color;
+
+            Mesh mesh = tileforpave.GetComponent<MeshFilter>().sharedMesh;
+            Mesh mesh2 = Instantiate(mesh);
+            gameObject.GetComponent<MeshFilter>().sharedMesh = mesh2;
+
+            tileColor = pave.color;
+
+            Kind_Of_This = TileKind.PAVED;
+            Price *= 2;
+            Description = "포장된 지역, 더 많은 건물들을 건설 할 수있다.";
+
+            lineh = 2;
+            for (int i = 0; i < points.Length; i++)
+            {
+                float x = Mathf.Sin(Mathf.Deg2Rad * (60 * i)) * radius;
+                float z = Mathf.Cos(Mathf.Deg2Rad * (60 * i)) * radius;
+                points[i] = Instantiate(for_vertices);
+                points[i].transform.parent = gameObject.transform;
+                points[i].transform.localPosition = new Vector3(x, lineh, z);
+            }
+
+            mountainChange = false;
+        }
         if (this.neighborTIle.Count == 0) //이웃한 타일들 정보 불러오기
         {
             for (int i = 0; i < GameManager.instance.tiles.Count; i++)
@@ -80,7 +114,6 @@ public class Tile : MonoBehaviour
         {
             owner.territory.Add(this);
         }
-
     }
 
 
