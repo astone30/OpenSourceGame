@@ -11,7 +11,7 @@ public class Tile : MonoBehaviour
 
     public GameObject[] points = new GameObject[6]; //핵사곤 타일의 꼭지점 좌표 받기용
     public GameObject for_vertices; //빈 게임오브젝트 클래스에 등록하기용
-    public GameObject construct;  //타일 위에있는 건축물(추후 스크립트 추가한다)
+    public Building construct;  //타일 위에있는 건축물(추후 스크립트 추가한다)
 
     public List <Tile> neighborTIle;
 
@@ -57,35 +57,7 @@ public class Tile : MonoBehaviour
     {
         if (mountainChange)
         {
-            gameObject.GetComponent<Transform>().localScale = new Vector3(1, 1, 1);
-            gameObject.GetComponent<Transform>().localPosition = new Vector3(0, 1.502358f, 0);
-            for (int i = 0; i < gameObject.GetComponent<Renderer>().materials.Length; i++)
-            {
-                gameObject.GetComponent<Renderer>().materials[i] = null;
-            }
-            gameObject.GetComponent<Renderer>().material.color = pave.color;
-
-            Mesh mesh = tileforpave.GetComponent<MeshFilter>().sharedMesh;
-            Mesh mesh2 = Instantiate(mesh);
-            gameObject.GetComponent<MeshFilter>().sharedMesh = mesh2;
-
-            tileColor = pave.color;
-
-            Kind_Of_This = TileKind.PAVED;
-            Price *= 2;
-            Description = "포장된 지역, 더 많은 건물들을 건설 할 수있다.";
-
-            lineh = 2;
-            for (int i = 0; i < points.Length; i++)
-            {
-                float x = Mathf.Sin(Mathf.Deg2Rad * (60 * i)) * radius;
-                float z = Mathf.Cos(Mathf.Deg2Rad * (60 * i)) * radius;
-                points[i] = Instantiate(for_vertices);
-                points[i].transform.parent = gameObject.transform;
-                points[i].transform.localPosition = new Vector3(x, lineh, z);
-            }
-
-            mountainChange = false;
+            MountainTileChange();
         }
         if (this.neighborTIle.Count == 0) //이웃한 타일들 정보 불러오기
         {
@@ -130,4 +102,36 @@ public class Tile : MonoBehaviour
         }
     }
 
+    private void MountainTileChange()
+    {
+        gameObject.GetComponent<Transform>().localScale = new Vector3(1, 1, 1);
+        gameObject.GetComponent<Transform>().localPosition = new Vector3(0, 1.502358f, 0);
+        for (int i = 0; i < gameObject.GetComponent<Renderer>().materials.Length; i++)
+        {
+            gameObject.GetComponent<Renderer>().materials[i] = null;
+        }
+        gameObject.GetComponent<Renderer>().material.color = pave.color;
+
+        Mesh mesh = tileforpave.GetComponent<MeshFilter>().sharedMesh;
+        Mesh mesh2 = Instantiate(mesh);
+        gameObject.GetComponent<MeshFilter>().sharedMesh = mesh2;
+
+        tileColor = pave.color;
+
+        Kind_Of_This = TileKind.PAVED;
+        Price *= 2;
+        Description = "포장된 지역, 더 많은 건물들을 건설 할 수있다.";
+
+        lineh = 2;
+        for (int i = 0; i < points.Length; i++)
+        {
+            float x = Mathf.Sin(Mathf.Deg2Rad * (60 * i)) * radius;
+            float z = Mathf.Cos(Mathf.Deg2Rad * (60 * i)) * radius;
+            points[i] = Instantiate(for_vertices);
+            points[i].transform.parent = gameObject.transform;
+            points[i].transform.localPosition = new Vector3(x, lineh, z);
+        }
+
+        mountainChange = false;
+    }
 }

@@ -824,6 +824,11 @@ MonoBehaviour:
   buildFireStation: {fileID: 3158504146498626514}
   buildPoliceStation: {fileID: 6104275626311565023}
   buildSchool: {fileID: 5758538261511504160}
+  villa: {fileID: 2052127963, guid: e6796652d5747d94888a7e2db27baad9, type: 3}
+  store: {fileID: 0}
+  filestation: {fileID: 0}
+  policestation: {fileID: 0}
+  school: {fileID: 0}
   buildUIprefab: {fileID: 0}
   buildUI: {fileID: 3485492453776313137, guid: b194dddfc3f88f9448c17880c6f36d0b, type: 3}
   mugimages:
@@ -1400,7 +1405,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000015258789}
+  m_AnchoredPosition: {x: 0, y: 300}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &250077581755756005

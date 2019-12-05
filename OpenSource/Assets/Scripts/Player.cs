@@ -182,6 +182,10 @@ public class Player: MonoBehaviour // TODO : Make PlayerCharacter, give characte
             {
                 if (!bUI)
                 {
+                    if (gUI)
+                    {
+                        gUI = false;
+                    }
                     Debug.Log("내땅"); // UI 조작 창(건설 Ui)
                     bUI = true;
                     ConstructUIprefab = Instantiate(ConstructUI);
@@ -195,6 +199,10 @@ public class Player: MonoBehaviour // TODO : Make PlayerCharacter, give characte
                 {
                     if (!gUI)
                     {
+                        if (bUI)
+                        {
+                            bUI = false;
+                        }
                         gUI = true;
                         groundUIprefab = Instantiate(groundUI);
                         groundUIprefab.GetComponent<GroundUI>().tile = selected.GetComponent<Tile>();

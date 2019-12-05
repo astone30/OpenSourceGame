@@ -16,6 +16,13 @@ public class ConstructUI : MonoBehaviour
     public Button buildPoliceStation;//경찰서
     public Button buildSchool; //학교
 
+    public Building villa;
+    public Building store;
+    public Building filestation;
+    public Building policestation;
+    public Building school;
+
+
 
     public GameObject buildUIprefab;
     public GameObject buildUI;
@@ -26,6 +33,7 @@ public class ConstructUI : MonoBehaviour
     {
         cancleButton.onClick.AddListener(CancleOrder);
         pavingTile.onClick.AddListener(PavingTile);
+        buildVilla.onClick.AddListener(BuildVilla);
     }
 
     public void Update()
@@ -68,5 +76,13 @@ public class ConstructUI : MonoBehaviour
                 buildUIprefab.GetComponent<BuildConfirmUI>().Description += "해안가에 건물을 건설 하겠다고? 어떻게 되도 모른다??";
                 break;
         }
+    }
+
+    void BuildVilla()
+    {
+        buildUIprefab = Instantiate(buildUI);
+        buildUIprefab.GetComponent<BuildConfirmUI>().hereHere = buildTothis;
+        buildUIprefab.transform.SetParent(this.GetComponentInParent<Player>().transform);
+        buildUIprefab.GetComponent<BuildConfirmUI>().tobuild = villa;
     }
 }

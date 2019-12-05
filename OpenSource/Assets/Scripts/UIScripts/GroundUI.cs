@@ -30,6 +30,13 @@ public class GroundUI : MonoBehaviour
         descriptiontxt.text = description;
 
     }
+    private void Update()
+    {
+        if (!this.GetComponentInParent<Player>().gUI)
+        {
+            Destroy(this.gameObject);
+        }
+    }
 
     void BuyOrder() //GAMEMANAGER에 구매요청(구매자가 누구인가, 무엇을 구매하려하는가)
     {

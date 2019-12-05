@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class BuildConfirmUI : MonoBehaviour
 {
     public Tile hereHere;
+    public Building tobuild;
 
     public Button build;
     public Button cancle;
