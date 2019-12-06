@@ -27,7 +27,7 @@ public class PlayerUI : MonoBehaviour
 
     private void Awake()
     {
-        theone = this.gameObject.GetComponent<Player>();
+        theone = gameObject.GetComponentInParent<Player>();
     }
 
     // Start is called before the first frame update
@@ -48,6 +48,11 @@ public class PlayerUI : MonoBehaviour
 
             score = Mathf.Lerp(score, theone.money, time);
             money.text = score.ToString("0000000000") + "$";
+        }
+
+        if (gameObject.GetComponentInParent<Player>().isCharaterhere)
+        {
+            gameObject.GetComponent<Animator>().SetBool("AllSet", true);
         }
     }
 

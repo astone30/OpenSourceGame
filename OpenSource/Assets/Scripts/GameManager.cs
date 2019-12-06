@@ -15,31 +15,23 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
     public float timeLimit = 60; //턴 시간제한
 
     public float turnTime = 30;
+    public float delaytime = 4f;
 
     public List<Player> players;
 
+    int ready = 0;
 
-    public bool startanimaiotnend = false; //시작 전 애니메이션이 끝났는지
+    public bool allEventShowed = false;
+    public bool allEventSett = false;
 
     public enum GamePlayFSM { //GameRule : TurnReady -> StartTrun -> TurnExit -> HalfTurn -> Eventset-> GoToNextTurn
-        beforeTurn, 
-        whileTurn, 
+        beforeTurn,
+        whileTurn,
         afterTurn,
-        gotoNextTurn 
+        gotoNextTurn
     }
 
     public GamePlayFSM playFSM;
-
-    public enum Event {
-        KILLER,
-        SERIALKILLER,
-        CELABLEAVSHERE,
-        FIRE,
-        SUPERVIRUS,
-        GETMOREPEOPLE,
-        ZOMBIEPOPUP,
-        TOURIST
-    }
 
     private void Awake()
     {
@@ -84,7 +76,7 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
         {
             SetPosition();
         }
-        else if(currentTrun > 0)
+        else if (currentTrun > 0)
         {
             playFSM = GamePlayFSM.gotoNextTurn;
         }
@@ -104,8 +96,14 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
                     if (players[i].territory.Count == 1 && players[i].charactorPos == Vector3.zero)
                     {
                         players[i].charactorPos = players[i].territory[0].transform.position; //Set character spawn area
+                        ready++;
                     }
                 }
+                if (ready == players.Count) //모든 플레이어들의 준비가 끝났다.
+                {
+                    Ready();
+                }
+
             }
         }
         else if (turnTime < 0) //After settime
@@ -123,8 +121,8 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
                     }
                 }
             }
-            LocateCharacters();
-            currentTrun ++;
+
+            Ready();
         }
     }
 
@@ -148,6 +146,20 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
         }
     }
 
+    private void Ready()
+    {
+        if (delaytime > 0)
+        {
+            Debug.Log("게임 시작 " + delaytime + " 초전");
+            delaytime -= Time.deltaTime;
+        }
+        if (delaytime <= 0)
+        {
+            LocateCharacters();
+            currentTrun++;
+        }
+    }
+
     private void CheckSequence() //After turn, output of player's act //다른 부분은 실시간으로 하되, 타일을 사고 팔고, 토지 경매 목적
     {
         if (theywantTheseTiles.Count > 0)
@@ -157,22 +169,35 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
         }
         else if (theywantTheseTiles.Count == 0) //땅 소유자 판정이 끝났을때 턴을 다시 준비한다.
         {
+            EventReady();
             currentTrun += 1;
             TurnReady();
         }
     }
 
+    void EventReady()
+    {
+        int num = Random.Range(0, 3);
+        EventHandler.instance.eventnum = num;
+        EventHandler.instance.act = EventHandler.Act.READY;
+    }
 
     private void WhileTurn()//턴 넘기기, 나중에 기능추가
     {
-        if (turnTime > 0)
+        if (!allEventShowed)
         {
-            turnTime -= Time.deltaTime;
+            EventShow();
         }
-        else if (turnTime <= 0)
+        else if (allEventShowed)
         {
-            playFSM = GamePlayFSM.afterTurn;
-            //TurnReady(); 
+            if (turnTime > 0)
+            {
+                turnTime -= Time.deltaTime;
+            }
+            else if (turnTime <= 0)
+            {
+                playFSM = GamePlayFSM.afterTurn;
+            }
         }
     }
 
@@ -181,17 +206,32 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
         turnTime = 30;
         if (currentTrun == 1)
         {
+            GiveActionPoint();
             playFSM = GamePlayFSM.whileTurn;
         }
         else if (currentTrun > 1)
         {
-            EventSetter();
+            allEventShowed = false;
+            GiveActionPoint();
             playFSM = GamePlayFSM.whileTurn;
         }
     }
 
-    private void EventSetter() //event셋
+    private void GiveActionPoint()
     {
+        for (int i = 0; i < players.Count; i++)
+        {
+            players[i].actionpoint += 5;
+        }
+    }
+
+    private void EventShow() //event셋
+    {
+        while (!allEventShowed)
+        {
+            //EventHandler.instance;
+            EventHandler.instance.act = EventHandler.Act.READY;
+        }
     }
 
     private void GivingLand()

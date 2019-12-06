@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\BuildingScripts\Villa.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
+    <Compile Include="Assets\Scripts\EventHandler.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GridSetter.cs" />
     <Compile Include="Assets\Scripts\Hex.cs" />
@@ -72,8 +73,10 @@
     <Compile Include="Assets\Scripts\UIScripts\BuildConfirmUI.cs" />
     <Compile Include="Assets\Scripts\UIScripts\BuildUI2.cs" />
     <Compile Include="Assets\Scripts\UIScripts\ConstructUI.cs" />
+    <Compile Include="Assets\Scripts\UIScripts\EventUI.cs" />
     <Compile Include="Assets\Scripts\UIScripts\GroundUI.cs" />
     <Compile Include="Assets\Scripts\UIScripts\PlayerUI.cs" />
+    <Compile Include="Assets\Scripts\UIScripts\StateText.cs" />
     <Compile Include="Assets\Scripts\WaterPlain.cs" />
     <Compile Include="Assets\Scripts\WaterWave.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">

@@ -36,6 +36,9 @@ public class Player: MonoBehaviour // TODO : Make PlayerCharacter, give characte
     public bool gUI = false;
     public bool bUI = false;
 
+    public GameObject statealarm;
+
+
     private void Start()
     {
         money = 10000;
@@ -47,9 +50,12 @@ public class Player: MonoBehaviour // TODO : Make PlayerCharacter, give characte
         {
             AtNormal();
         }
-        if (GameManager.instance.currentTrun == 0 && this.territory.Count <1) //시작 지점 세팅용
+        if (GameManager.instance.currentTrun == 0) //시작 지점 세팅용
         {
-            SetStartPositon();
+            if (this.territory.Count== 0)
+            {
+                SetStartPositon();
+            }
         }
         if (GameManager.instance.currentTrun > 0 && GameManager.instance.playFSM == GameManager.GamePlayFSM.whileTurn)  //턴이 진행중일때의 상태를 표시한다.
         {

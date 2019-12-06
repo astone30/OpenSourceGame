@@ -9,8 +9,6 @@ public class Villa : Building
     bool gotmoney = false;
     bool costmoney = true;
 
-    float speed = 0.5f;
-
     private void Awake()
     {
         set_time = GameManager.instance.currentTrun;

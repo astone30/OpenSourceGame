@@ -15,12 +15,14 @@ public class ConstructUI : MonoBehaviour
     public Button buildFireStation;//소방서
     public Button buildPoliceStation;//경찰서
     public Button buildSchool; //학교
+    public Button buildHospital; //학교
 
     public Building villa;
     public Building store;
     public Building filestation;
     public Building policestation;
     public Building school;
+    public Building hospital;
 
 
 
@@ -30,10 +32,9 @@ public class ConstructUI : MonoBehaviour
     public GameObject buildUI2prefab;
     public GameObject buildUI2;
 
-    public Sprite[] mugimages; //이미지들
-
     public void Start()
     {
+        gameObject.GetComponent<Animator>().SetBool("BuildPop", true);
         cancleButton.onClick.AddListener(CancleOrder);
         pavingTile.onClick.AddListener(PavingTile);
         buildVilla.onClick.AddListener(BuildVilla);
