@@ -831,6 +831,9 @@ MonoBehaviour:
   school: {fileID: 0}
   buildUIprefab: {fileID: 0}
   buildUI: {fileID: 3485492453776313137, guid: b194dddfc3f88f9448c17880c6f36d0b, type: 3}
+  buildUI2prefab: {fileID: 0}
+  buildUI2: {fileID: 8622653023988762846, guid: 286bcc4b9d02dfd45bc5e7f28fbba70d,
+    type: 3}
   mugimages:
   - {fileID: 21300000, guid: 0cc83c41e33d7314096ccc35e436849e, type: 3}
 --- !u!1 &427558124958333648

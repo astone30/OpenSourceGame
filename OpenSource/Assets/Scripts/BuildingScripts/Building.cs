@@ -17,6 +17,8 @@ public class Building : MonoBehaviour
     public float how_damaged; //데미지를 받은 정도 
 
     public string description; //설명UI창을 위해 두었다.
+    public string name; //이름 UI창을 위해 두었다.
 
     public GameObject buildingParticle;
+    public GameObject dust;
 }

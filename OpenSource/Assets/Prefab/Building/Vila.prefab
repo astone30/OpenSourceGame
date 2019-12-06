@@ -27,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2052127962}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 0.5647855, y: 0.048980977, z: 0.7030071}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &6335037931623807375
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -115,8 +115,10 @@ MonoBehaviour:
   health: 0
   how_damaged: 0
   description: 
+  name: 
   buildingParticle: {fileID: 5767700333228107806, guid: fc64af6d5fdb8074d88f2535b3413079,
     type: 3}
+  dust: {fileID: 0}
   populaiton: 0
 --- !u!65 &8617011722686532156
 BoxCollider:

@@ -27,6 +27,9 @@ public class ConstructUI : MonoBehaviour
     public GameObject buildUIprefab;
     public GameObject buildUI;
 
+    public GameObject buildUI2prefab;
+    public GameObject buildUI2;
+
     public Sprite[] mugimages; //이미지들
 
     public void Start()
@@ -80,9 +83,11 @@ public class ConstructUI : MonoBehaviour
 
     void BuildVilla()
     {
-        buildUIprefab = Instantiate(buildUI);
-        buildUIprefab.GetComponent<BuildConfirmUI>().hereHere = buildTothis;
-        buildUIprefab.transform.SetParent(this.GetComponentInParent<Player>().transform);
-        buildUIprefab.GetComponent<BuildConfirmUI>().tobuild = villa;
+        buildUI2prefab = Instantiate(buildUI2);
+        buildUI2prefab.GetComponent<BuildUI2>().hereHere = buildTothis;
+        buildUI2prefab.transform.SetParent(this.GetComponentInParent<Player>().transform);
+        buildUI2prefab.GetComponent<BuildUI2>().pricenum = villa.price;
+        buildUI2prefab.GetComponent<BuildUI2>().Description = villa.description;
+        buildUI2prefab.GetComponent<BuildUI2>().tobuild = villa;
     }
 }

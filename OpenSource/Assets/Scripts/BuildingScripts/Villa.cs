@@ -9,6 +9,8 @@ public class Villa : Building
     bool gotmoney = false;
     bool costmoney = true;
 
+    float speed = 0.5f;
+
     private void Awake()
     {
         set_time = GameManager.instance.currentTrun;
@@ -23,6 +25,9 @@ public class Villa : Building
 
         how_damaged = 0;
 
+        name = "거주지";
+        description = "주민들이 이곳에서 거주한다.";
+
     }
 
     // Update is called once per frame
@@ -30,15 +35,16 @@ public class Villa : Building
     {
         if (!isReady) // 건물이 완공되지 않았을 때
         {
-            //set build animation
+            OnBuild(); //set build animation
             if (GameManager.instance.currentTrun == set_time + turn_time)
             {
                 isReady = true; // 준비 완료
-                isActive = true; // 활성화 
+                isActive = true; // 활성화
             }
         }
         else if (isReady)
         {
+            Destroy(dust);
             GetProfit();
             LoseCost();
         }
@@ -88,7 +94,17 @@ public class Villa : Building
 
     void OnBuild()
     {
-        gameObject.transform.localPosition -= Vector3.down * 1.5f;
-        
+        if (dust == null && !isReady)
+        {
+            dust = Instantiate(buildingParticle);
+            dust.transform.SetParent(this.gameObject.transform.parent);
+            dust.transform.localScale = new Vector3(2, 0, 2);
+            dust.transform.localPosition = new Vector3(0,2,0);
+        }
+
+        if (gameObject.transform.localPosition.y < 0)
+        {
+            gameObject.transform.localPosition += Vector3.up * 0.009f;
+        }
     }
 }

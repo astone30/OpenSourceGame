@@ -464,8 +464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hereHere: {fileID: 0}
-  formountain: {fileID: 4149549780389181311, guid: 8c6a07106473dd54bade87a01f53fa15,
-    type: 3}
+  tobuild: {fileID: 0}
   build: {fileID: 6765217567231098252}
   cancle: {fileID: 2133161237157317619}
   price: {fileID: 1325440089507296810}
