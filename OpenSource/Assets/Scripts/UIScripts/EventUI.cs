@@ -10,25 +10,38 @@ public class EventUI : MonoBehaviour
 
     public string newsLetter;
     bool isClicked = false;
+    public float time = 6f;
     // Update is called once per frame
+    private void Awake()
+    {
+        EventHandler.instance.newsDone = false;
+        gameObject.GetComponent<Animator>().SetBool("EventPOP", true);
+    }
+
     void Update()
     {
+        time -= Time.deltaTime;   
         for (int i = 0; i < newsLetter.Length; i++)
         {
-            news.text += newsLetter[i];
-            if (Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space))
+            news.text = newsLetter;
+            if (gameObject.GetComponent<Animator>().GetBool("EventPOP"))
             {
-                news.text = newsLetter;
-                isClicked = true;
-                break;
+                if (Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space))
+                {
+                    news.text = newsLetter;
+                    isClicked = true;
+                    break;
+                }
             }
         }
-        if (isClicked)
+        if (time <3)
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                gameObject.GetComponent<Animator>().SetBool("EventDown", true);
-            }
+             gameObject.GetComponent<Animator>().SetBool("EventDown", true);
+             if (time < 0)
+             {
+                EventHandler.instance.newsDone = true;
+                Destroy(gameObject);
+             }
         }
     }
 }

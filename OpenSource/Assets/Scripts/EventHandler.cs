@@ -8,29 +8,26 @@ public class EventHandler : MonoBehaviour
     public static EventHandler instance;
 
     public GameObject newspaper;
-
-    public List<int> setevent;
     public List<Sprite> eventimages; //후에 추가
 
-    public int eventnum;
-
-    public enum Act { NOTHING, SHOW, READY } //이벤트 발생시키기, 준비하기
-
-    public Act act;
-
-    bool set = false;
+    public bool set = false;
+    public bool newsDone = false;
     bool newspop = false;
 
-    public enum Event
-    {
-        PEOPLECOMING,
-        KILLER,
-        CELABLEAVSHERE,
-        FIRE,
-        DISEASE,
-        FLOAD,
-    }
+    public List<GameObject> wanderingpeople;
+    public GameObject wanderingKiller;
 
+    public GameObject KillerEvent;
+    public GameObject FireEvent;
+    public GameObject FloadEvent;
+    public GameObject VirusEvent;
+    public GameObject PeopleEvent;
+
+    public int a;
+
+    public string newsdebug;
+
+    public int eventhandle;
     private void Awake()
     {
         instance = this;
@@ -39,118 +36,110 @@ public class EventHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        EventSwitcher();
-    }
-
-    void EventSwitcher()
-    {
-        switch (act)
+        if (GameManager.instance.playFSM == GameManager.GamePlayFSM.gotoNextTurn) //이벤트 종류 결정
         {
-            case Act.NOTHING:
-                break;
-            case Act.READY:
-                SetEvent();
-                break;
-            case Act.SHOW:
-                ShowingEvent();
-                break;
-        }
-    }
-
-    void SetEvent()
-    {
-        if (!set)
-        {
-            for (int i = 0; i < eventnum; i++)
+            set = false;
+            if (!set)
             {
-                setevent.Add(Random.Range(0, 5));
+                a = Random.Range(0, 7);
+                EventSet(a);
             }
-            set = true;
-            GameManager.instance.allEventSett = set;
         }
     }
 
-    void ShowingEvent()
+    void EventSet(int index)
     {
-        for (int i = 0; i < setevent.Count; i++)
+        if (index < 4)
         {
-            ActivateEvent((Event)setevent[i]);
+            switch (index)
+            {
+                case 0:
+                    if (wanderingKiller != null)
+                    {
+                        a = Random.Range(0, 7);
+                        EventSet(a);
+                    }
+                    else if (wanderingKiller == null)
+                    {
+                        DecideEvent(KillerEvent, KillerEvent.GetComponent<Killer>().description);
+                        set = true;
+                    }
+                    break;
+                case 1:
+                    DecideEvent(FireEvent, FireEvent.GetComponent<Fire>().description);
+                    set = true;
+                    break;
+                case 2:
+                    DecideEvent(FloadEvent, FloadEvent.GetComponent<Fload>().description);
+                    set = true;
+                    break;
+                case 3:
+                    DecideEvent(VirusEvent, VirusEvent.GetComponent<Virus>().description);
+                    set = true;
+                    break;
+            }
         }
-    }
-
-    void ActivateEvent(Event tt)
-    {
-        switch (tt)
+        else if (index >= 4)
         {
-            case Event.PEOPLECOMING:
-                GetMorePeople();
-                break;
-            case Event.KILLER:
-                KillerPOP();
-                break;
-            case Event.CELABLEAVSHERE:
-                CelabisComming();
-                break;
-            case Event.FIRE:
-                FirePOP();
-                break;
-            case Event.DISEASE:
-                DiseasePOP();
-                break;
-            case Event.FLOAD:
-                FloadPOP();
-                break;
-
+            if (wanderingpeople.Count < 3)
+            {
+                //주민 이벤트로 결정
+                DecideEvent(PeopleEvent, PeopleEvent.GetComponent<PeopleComing>().description);
+                set = true;
+            }
+            else if (wanderingpeople.Count == 3)
+            {
+                a = Random.Range(0, 7);
+                EventSet(a);
+            }
         }
     }
 
-    void GetMorePeople()
+    void DecideEvent(GameObject thisevent, string newsdescription)
     {
-        string content = "외딴섬, 거주민 유입...";
-        ShowNewspaper(content);
+        newspop = false;
+        newsdebug = newsdescription;
+        ShowNewspaper(newsdescription);
+        LocateEvent(thisevent);
     }
 
-    void KillerPOP()
+    void LocateEvent(GameObject thisevent)
     {
-        string content = "외딴 섬에서 살인사건 발생, 섬 주민들 공포에 떨다.";
-        ShowNewspaper(content);
-    }
+        GameObject eventpref = null;
+        if (thisevent.GetComponent<Killer>())
+        {
+            eventpref = Instantiate(thisevent);
+        }
+        else if (thisevent.GetComponent<Fire>())
+        {
 
-    void CelabisComming()
-    {
-        string content = "유명 가수 ㅁㅁ, 외딴 섬으로 이주하다.";
-        ShowNewspaper(content);
-    }
+        }
+        else if (thisevent.GetComponent<Fload>())
+        {
 
-    void FirePOP()
-    {
-        string content = "화재주의 경보, 산불발생!!";
-        ShowNewspaper(content);
-    }
+        }
+        else if (thisevent.GetComponent<Virus>())
+        {
 
-    void DiseasePOP()
-    {
-        string content = "질병주의보, 알수없는 바이러스가 외딴 섬에서 발현되다!!";
-        ShowNewspaper(content);
-    }
+        }
+        else if (thisevent.GetComponent<PeopleComing>())
+        {
+            if (eventpref == null)
+            {
+                eventpref = Instantiate(thisevent);
+            }
 
-    void FloadPOP()
-    {
-        string content = "태풍 경보, 주민들은 외출을 삼가시오.";
-        ShowNewspaper(content);
+        }
     }
 
     void ShowNewspaper(string news)//화요일에 이미지 추가 image img, string news
     {
         if (!newspop)
         {
-            Instantiate(newspaper);
-            newspaper.GetComponent<EventUI>().newsLetter = news;
+            GameObject pref = Instantiate(newspaper);
+            pref.GetComponent<EventUI>().newsLetter = news;
             newspop = true;
         }
-        else if (newspop)
-        {
-            newspaper.GetComponent<Animator>().SetBool("EventPOP", true);
-        }
     }
+
 }

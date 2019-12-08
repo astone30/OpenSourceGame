@@ -21,9 +21,8 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
 
     int ready = 0;
 
-    public bool allEventShowed = false;
-    public bool allEventSett = false;
-
+    public bool eventShowed = false;
+   
     public enum GamePlayFSM { //GameRule : TurnReady -> StartTrun -> TurnExit -> HalfTurn -> Eventset-> GoToNextTurn
         beforeTurn,
         whileTurn,
@@ -169,27 +168,18 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
         }
         else if (theywantTheseTiles.Count == 0) //땅 소유자 판정이 끝났을때 턴을 다시 준비한다.
         {
-            EventReady();
             currentTrun += 1;
             TurnReady();
         }
     }
 
-    void EventReady()
-    {
-        int num = Random.Range(0, 3);
-        EventHandler.instance.eventnum = num;
-        EventHandler.instance.act = EventHandler.Act.READY;
-    }
-
     private void WhileTurn()//턴 넘기기, 나중에 기능추가
     {
-        if (!allEventShowed)
+        EventHandler.instance.set = false;
+        //이벤트 생성후 시간이 지나간다.주민생성 등등
+        if (EventHandler.instance.newsDone)
         {
-            EventShow();
-        }
-        else if (allEventShowed)
-        {
+            //
             if (turnTime > 0)
             {
                 turnTime -= Time.deltaTime;
@@ -211,9 +201,15 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
         }
         else if (currentTrun > 1)
         {
-            allEventShowed = false;
-            GiveActionPoint();
-            playFSM = GamePlayFSM.whileTurn;
+            //이벤트보여준다.
+            //보여준 후 
+
+
+            if (EventHandler.instance.set)
+            {
+                GiveActionPoint(); //액션포인트 추가
+                playFSM = GamePlayFSM.whileTurn;// 진행 턴으로 
+            }
         }
     }
 
@@ -227,11 +223,7 @@ public class GameManager : MonoBehaviour //TODO : Make Eventhandler,
 
     private void EventShow() //event셋
     {
-        while (!allEventShowed)
-        {
-            //EventHandler.instance;
-            EventHandler.instance.act = EventHandler.Act.READY;
-        }
+        
     }
 
     private void GivingLand()

@@ -65,6 +65,12 @@
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\EventHandler.cs" />
+    <Compile Include="Assets\Scripts\EventScripts\Event.cs" />
+    <Compile Include="Assets\Scripts\EventScripts\Fire.cs" />
+    <Compile Include="Assets\Scripts\EventScripts\Fload.cs" />
+    <Compile Include="Assets\Scripts\EventScripts\Killer.cs" />
+    <Compile Include="Assets\Scripts\EventScripts\PeopleComing.cs" />
+    <Compile Include="Assets\Scripts\EventScripts\Virus.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GridSetter.cs" />
     <Compile Include="Assets\Scripts\Hex.cs" />

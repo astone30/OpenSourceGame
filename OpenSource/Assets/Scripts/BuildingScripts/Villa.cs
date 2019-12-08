@@ -31,6 +31,7 @@ public class Villa : Building
     // Update is called once per frame
     void Update()
     {
+        populaiton = Mathf.Clamp(populaiton, 0, 10);
         if (!isReady) // 건물이 완공되지 않았을 때
         {
             OnBuild(); //set build animation
