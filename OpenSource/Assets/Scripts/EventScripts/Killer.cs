@@ -7,7 +7,7 @@ public class Killer : Event
     bool ismove = false;
     private void Awake()
     {
-        EventHandler.instance.wanderingKiller =gameObject;
+        EventHandler.instance.wanderingKiller = gameObject;
         int ran = Random.Range(0, GameManager.instance.tiles.Count);
         hereisEvent = GameManager.instance.tiles[ran];
         gameObject.transform.position = GameManager.instance.tiles[ran].transform.position;
@@ -16,6 +16,19 @@ public class Killer : Event
     private void Start()
     {
         StartCoroutine(Wandering());
+    }
+
+    private void Update()
+    {
+        if (hereisEvent == GameManager.instance.players[0].WhereIsYourCharacter)
+        {
+            Destroy(GameManager.instance.players[0]);
+        }
+        if (hereisEvent.rightNow != Tile.NatureEvent.NONE)
+        {
+            EventHandler.instance.wanderingKiller = null;
+            Destroy(gameObject);
+        }
     }
 
     IEnumerator Wandering()

@@ -112,7 +112,7 @@ public class EventHandler : MonoBehaviour
         }
         else if (thisevent.GetComponent<Fire>())
         {
-
+            eventpref = Instantiate(thisevent);
         }
         else if (thisevent.GetComponent<Fload>())
         {
@@ -120,7 +120,7 @@ public class EventHandler : MonoBehaviour
         }
         else if (thisevent.GetComponent<Virus>())
         {
-
+            eventpref = Instantiate(thisevent);
         }
         else if (thisevent.GetComponent<PeopleComing>())
         {

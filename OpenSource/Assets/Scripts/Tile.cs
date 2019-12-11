@@ -22,6 +22,9 @@ public class Tile : MonoBehaviour
     public enum TileKind{BEACH, GRASS, MOUNTAIN, PAVED} //타일의 종류판별
     public TileKind Kind_Of_This; //타일 종류 스위쳐
 
+    public enum NatureEvent {NONE, FIRE, VIRUS }
+    public NatureEvent rightNow;
+
     public Player owner; //소유한 플레이어 식별용
     public List<Player> WhoWantsToBuy;
 

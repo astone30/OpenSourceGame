@@ -1472,11 +1472,11 @@ MonoBehaviour:
   wanderingKiller: {fileID: 0}
   KillerEvent: {fileID: 3406243484880881979, guid: d6218ad2e39fecd4bb572bac84ae899f,
     type: 3}
-  FireEvent: {fileID: 1702067840203394336, guid: 0b8f5d26d6a0503458e7d0a4e119bd22,
+  FireEvent: {fileID: 1702067840203394336, guid: 15f96a9a99bd2eb498c4365b4f62ea47,
     type: 3}
   FloadEvent: {fileID: 9180735142054201672, guid: 3a91aedab3c223f43b33786ca5507666,
     type: 3}
-  VirusEvent: {fileID: 2308885817377665090, guid: 97a6ca07b593c704196ca864794452a5,
+  VirusEvent: {fileID: 4975612718092725920, guid: 7dd3cd8bf11240e439dfd57c7cfd4afc,
     type: 3}
   PeopleEvent: {fileID: 9005047802738011840, guid: 6b9711ec633994845bab5fd48b4a1d8e,
     type: 3}
@@ -3778,7 +3778,7 @@ GameObject:
   - component: {fileID: 2014913658}
   - component: {fileID: 2014913657}
   m_Layer: 5
-  m_Name: Alarm
+  m_Name: ActionPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3800,7 +3800,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 118.9, y: 185.5}
+  m_AnchoredPosition: {x: 118.9, y: 234.8}
   m_SizeDelta: {x: 227.44, y: 45.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2014913657
@@ -3816,7 +3816,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3825,7 +3825,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_FontSize: 23
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 0

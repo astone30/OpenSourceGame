@@ -17,6 +17,29 @@ public class PeopleComing : Event
     {
         StartCoroutine(Wandering());
     }
+    private void Update()
+    {
+        if (EventHandler.instance.wanderingKiller != null)
+        {
+            if (hereisEvent == EventHandler.instance.wanderingKiller.GetComponent<Killer>().hereisEvent)
+            {
+                EventHandler.instance.wanderingpeople.Remove(gameObject);
+                Destroy(gameObject);
+            }
+        }
+        if (hereisEvent == GameManager.instance.players[0].WhereIsYourCharacter)
+        {
+            GameManager.instance.players[0].playerCharcteronScreen.GetComponent<Character>().gotPeople += 5;
+            EventHandler.instance.wanderingpeople.Remove(gameObject);
+            Destroy(gameObject);
+        }
+        if (hereisEvent.rightNow != Tile.NatureEvent.NONE)
+        {
+            EventHandler.instance.wanderingpeople.Remove(gameObject);
+            Destroy(gameObject);
+        }
+
+    }
 
     IEnumerator Wandering()
     {
@@ -31,6 +54,7 @@ public class PeopleComing : Event
                 if (hereisEvent.construct.GetComponent<Villa>())
                 {
                     hereisEvent.construct.GetComponent<Villa>().populaiton += 5;
+                    EventHandler.instance.wanderingpeople.Remove(gameObject);
                     Destroy(gameObject);
                 }
             }

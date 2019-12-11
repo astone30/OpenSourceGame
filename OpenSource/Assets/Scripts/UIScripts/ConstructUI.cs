@@ -19,7 +19,7 @@ public class ConstructUI : MonoBehaviour
 
     public Building villa;
     public Building store;
-    public Building filestation;
+    public Building firestation;
     public Building policestation;
     public Building school;
     public Building hospital;
@@ -38,6 +38,10 @@ public class ConstructUI : MonoBehaviour
         cancleButton.onClick.AddListener(CancleOrder);
         pavingTile.onClick.AddListener(PavingTile);
         buildVilla.onClick.AddListener(BuildVilla);
+        buildSchool.onClick.AddListener(BuildSchool);
+        buildPoliceStation.onClick.AddListener(BuildPolice);
+        buildFireStation.onClick.AddListener(BuildFireStation);
+        buildHospital.onClick.AddListener(BuildHospital);
     }
 
     public void Update()
@@ -90,5 +94,45 @@ public class ConstructUI : MonoBehaviour
         buildUI2prefab.GetComponent<BuildUI2>().pricenum = villa.price;
         buildUI2prefab.GetComponent<BuildUI2>().Description = villa.description;
         buildUI2prefab.GetComponent<BuildUI2>().tobuild = villa;
+    }
+
+    void BuildSchool()
+    {
+        buildUI2prefab = Instantiate(buildUI2);
+        buildUI2prefab.GetComponent<BuildUI2>().hereHere = buildTothis;
+        buildUI2prefab.transform.SetParent(this.GetComponentInParent<Player>().transform);
+        buildUI2prefab.GetComponent<BuildUI2>().pricenum = school.price;
+        buildUI2prefab.GetComponent<BuildUI2>().Description = school.description;
+        buildUI2prefab.GetComponent<BuildUI2>().tobuild = school;
+    }
+
+    void BuildFireStation()
+    {
+        buildUI2prefab = Instantiate(buildUI2);
+        buildUI2prefab.GetComponent<BuildUI2>().hereHere = buildTothis;
+        buildUI2prefab.transform.SetParent(this.GetComponentInParent<Player>().transform);
+        buildUI2prefab.GetComponent<BuildUI2>().pricenum = firestation.price;
+        buildUI2prefab.GetComponent<BuildUI2>().Description = firestation.description;
+        buildUI2prefab.GetComponent<BuildUI2>().tobuild = firestation;
+    }
+
+    void BuildPolice()
+    {
+        buildUI2prefab = Instantiate(buildUI2);
+        buildUI2prefab.GetComponent<BuildUI2>().hereHere = buildTothis;
+        buildUI2prefab.transform.SetParent(this.GetComponentInParent<Player>().transform);
+        buildUI2prefab.GetComponent<BuildUI2>().pricenum = policestation.price;
+        buildUI2prefab.GetComponent<BuildUI2>().Description = policestation.description;
+        buildUI2prefab.GetComponent<BuildUI2>().tobuild = policestation;
+    }
+
+    void BuildHospital()
+    {
+        buildUI2prefab = Instantiate(buildUI2);
+        buildUI2prefab.GetComponent<BuildUI2>().hereHere = buildTothis;
+        buildUI2prefab.transform.SetParent(this.GetComponentInParent<Player>().transform);
+        buildUI2prefab.GetComponent<BuildUI2>().pricenum = hospital.price;
+        buildUI2prefab.GetComponent<BuildUI2>().Description = hospital.description;
+        buildUI2prefab.GetComponent<BuildUI2>().tobuild = hospital;
     }
 }

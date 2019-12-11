@@ -21,6 +21,7 @@ public class StateText : MonoBehaviour
     }
     private void Update()
     {
+        state.text = "ActionPoint Left : " + gameObject.GetComponentInParent<Player>().actionpoint.ToString();
         if (GameManager.instance.currentTrun != 0)
         {
             StopCoroutine(SetPosition());

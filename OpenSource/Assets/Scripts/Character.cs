@@ -11,4 +11,6 @@ public class Character : MonoBehaviour
 
     public int gotPeople = 0;
 
+    public int health = 100;
+
 }
