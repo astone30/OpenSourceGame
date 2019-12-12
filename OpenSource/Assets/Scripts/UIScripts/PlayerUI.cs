@@ -54,6 +54,11 @@ public class PlayerUI : MonoBehaviour
         {
             gameObject.GetComponent<Animator>().SetBool("AllSet", true);
         }
+
+        else if (!gameObject.GetComponentInParent<Player>().isCharaterhere)
+        {
+
+        }
     }
 
 

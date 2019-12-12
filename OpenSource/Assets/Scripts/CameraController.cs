@@ -43,18 +43,19 @@ public class CameraController : MonoBehaviour
         pos.z = Mathf.Clamp(pos.z, -panLimit.y, 2f);
 
 
-        if (gameObject.GetComponentInParent<Player>().isCharaterhere == true)
-        {
             if (!startSet)
             {
-                pos = Vector3.Lerp(pos, gameObject.GetComponentInParent<Player>().charactorPos, Time.deltaTime * 2f);
-                if (pos.y <= 5)
+                if (gameObject.GetComponentInParent<Player>().isCharaterhere == true)
                 {
-                    pos.y = 5f;
-                    startSet = true;
+                    pos = Vector3.Lerp(pos, gameObject.GetComponentInParent<Player>().charactorPos, Time.deltaTime * 2f);
+                    if (pos.y <= 5)
+                    {
+                        pos.y = 5f;
+                        startSet = true;
+                    }
                 }
             }
-        }
+        
 
         transform.position = pos;
     }

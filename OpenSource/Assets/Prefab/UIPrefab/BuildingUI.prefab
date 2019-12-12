@@ -280,7 +280,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD559\uAD50"
+  m_Text: "\uBCD1\uC6D0"
 --- !u!1 &427558123207964955
 GameObject:
   m_ObjectHideFlags: 0
@@ -2374,7 +2374,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Price : 6500'
+  m_Text: 'Price : 2500'
 --- !u!1 &2726863854129070403
 GameObject:
   m_ObjectHideFlags: 0
@@ -2648,7 +2648,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Price : 7000'
+  m_Text: 'Price : 1200'
 --- !u!1 &3193604260821432948
 GameObject:
   m_ObjectHideFlags: 0
@@ -3102,7 +3102,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Price : 5000'
+  m_Text: 'Price : 4500'
 --- !u!1 &4441901015123774513
 GameObject:
   m_ObjectHideFlags: 0
@@ -3669,7 +3669,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Price : 5600'
+  m_Text: 'Price : 2500'
 --- !u!1 &5272683495416850690
 GameObject:
   m_ObjectHideFlags: 0
@@ -5101,7 +5101,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Price : 3500'
+  m_Text: 'Price : 1100'
 --- !u!1 &7207149733340608789
 GameObject:
   m_ObjectHideFlags: 0
@@ -5903,4 +5903,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Price : 7000'
+  m_Text: 'Price : 3000'

@@ -52,6 +52,7 @@ public class Fire : Event
             for (int i = 0; i < OnFire.Count; i++)
             {
                 Destroy(OnFire[i]);
+                OnFire.Remove(OnFire[i]);
             }
             for (int i = 0; i < everyfirepath.Count; i++)
             {

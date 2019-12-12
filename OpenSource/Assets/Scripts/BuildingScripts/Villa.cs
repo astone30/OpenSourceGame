@@ -67,6 +67,12 @@ public class Villa : Building
                 {
                     gotmoney = false;
                 }
+
+                if (GameManager.instance.players[0].playerCharcteronScreen.GetComponent<Character>().gotPeople != 0 && GameManager.instance.players[0].WhereIsYourCharacter == gameObject.GetComponentInParent<Tile>())
+                {
+                    populaiton = GameManager.instance.players[0].playerCharcteronScreen.GetComponent<Character>().gotPeople;
+                    GameManager.instance.players[0].playerCharcteronScreen.GetComponent<Character>().gotPeople = 0;
+                }
             }
         }
 

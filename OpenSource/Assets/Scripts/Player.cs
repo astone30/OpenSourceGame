@@ -220,17 +220,10 @@ public class Player: MonoBehaviour // TODO : Make PlayerCharacter, give characte
             }
         }
         else if (selected.tag == "Character") //케릭터 태그
-        {
-            if (selected.GetComponent<Character>().whoseCharacter == this)
-            {
-                isCharacterSelected = true;
-                Debug.Log("내캐릭터"); //캐릭터 선택
-                ShowMoveableRange(WhereIsYourCharacter);
-            }
-            else
-            {
-                Debug.Log("캐릭터"); //타 플레이어 정보UI
-            }
+        {  
+            isCharacterSelected = true;
+            Debug.Log("내캐릭터"); //캐릭터 선택
+            ShowMoveableRange(WhereIsYourCharacter);
         }
     }
 

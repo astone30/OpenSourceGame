@@ -7,6 +7,7 @@ public class StateText : MonoBehaviour
 {
     public Text state;
     public Text guide;
+    public Text health;
 
     public GameObject panel;
 
@@ -21,7 +22,11 @@ public class StateText : MonoBehaviour
     }
     private void Update()
     {
-        state.text = "ActionPoint Left : " + gameObject.GetComponentInParent<Player>().actionpoint.ToString();
+        if (gameObject.GetComponentInParent<Player>().playerCharcteronScreen != null)
+        {
+            state.text = "ActionPoint Left : " + gameObject.GetComponentInParent<Player>().actionpoint.ToString();
+            health.text = "CharacterHealth : " + gameObject.GetComponentInParent<Player>().playerCharcteronScreen.GetComponent<Character>().health.ToString("000");
+        }
         if (GameManager.instance.currentTrun != 0)
         {
             StopCoroutine(SetPosition());

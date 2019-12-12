@@ -24,10 +24,13 @@ public class EventHandler : MonoBehaviour
     public GameObject PeopleEvent;
 
     public int a;
+    public int index;
 
     public string newsdebug;
 
     public int eventhandle;
+
+    public int[] scenario = {4,5,2,1,0,3,4,2,4,3};
     private void Awake()
     {
         instance = this;
@@ -41,8 +44,9 @@ public class EventHandler : MonoBehaviour
             set = false;
             if (!set)
             {
-                a = Random.Range(0, 7);
+                a = scenario[index];
                 EventSet(a);
+                index++;
             }
         }
     }

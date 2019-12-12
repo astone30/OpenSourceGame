@@ -22,7 +22,7 @@ public class Killer : Event
     {
         if (hereisEvent == GameManager.instance.players[0].WhereIsYourCharacter)
         {
-            Destroy(GameManager.instance.players[0]);
+            Destroy(GameManager.instance.players[0].playerCharcteronScreen);
         }
         if (hereisEvent.rightNow != Tile.NatureEvent.NONE)
         {

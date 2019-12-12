@@ -46,9 +46,9 @@ public class Hospital : Building
     {
         if (GameManager.instance.players[0].WhereIsYourCharacter == gameObject.GetComponentInParent<Tile>())
         {
-            if (GameManager.instance.players[0].playerCharcteronScreen.GetComponent<Character>().health < 100)
+            if (GameManager.instance.players[0].playerCharcteronScreen.GetComponent<Character>().health < 100f)
             {
-                GameManager.instance.players[0].playerCharcteronScreen.GetComponent<Character>().health = 100;
+                GameManager.instance.players[0].playerCharcteronScreen.GetComponent<Character>().health = 100f;
             }
         }
     }
